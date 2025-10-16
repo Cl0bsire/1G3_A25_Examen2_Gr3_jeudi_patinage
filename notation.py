@@ -14,6 +14,8 @@ def valider_notes(notes: list[float]) -> bool:
     for n in notes:
         if n > 3:
             return False
+        elif n < -3:
+            return False
 
     return True
 
@@ -25,21 +27,19 @@ def calculer_points(vbase: float, notes: list[float]) -> float:
     :param notes: liste de notes
     :returns: valeur de la note finale
     """
-    try:
-        valider_notes(notes)
+    if valider_notes(notes) == True:
+
 
         note_max = max(notes)
         note_min = min(notes)
+        notes.remove(note_max)
+        notes.remove(note_min)
 
-        for i in range(len(notes)):
-            if notes[i] == note_max or note_min:
-                notes.remove(notes[i])
-
-        moyenne = sum(notes) / 9
+        moyenne = sum(notes) / 7
         total = vbase + moyenne
         return total
 
-    except ValueError:
+    else:
         print("Erreur")
         return 0
 
